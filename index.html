@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kryštof.papež.</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      background-color: #00ffff;
+      color: #1f2937;
+      font-size: 16px;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px;
+      background: linear-gradient(135deg, #000000, #f97316);
+      color: white;
+      border-radius: 8px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .quiz-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .question {
+      margin-bottom: 24px;
+      padding: 16px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question h3 {
+      margin: 0 0 16px 0;
+      color: #1f2937;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .answer-label {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin: 8px 0;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .answer-label:hover {
+      background-color: #00000010;
+      transform: translateX(4px);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 12px;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      font-family: Inter, sans-serif;
+      font-size: 16px;
+      resize: vertical;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px #f9731620;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: Inter, sans-serif;
+    }
+
+    .btn-submit {
+      background-color: #000000;
+      color: white;
+    }
+
+    .btn-submit:hover {
+      background-color: #f97316;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-reset {
+      background-color: #10b981;
+      color: white;
+    }
+
+    .btn-reset:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .btn-show-answers {
+      background-color: #f97316;
+      color: white;
+    }
+
+    .btn-show-answers:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    #resultsModal {
+      display: flex !important;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      header {
+        padding: 16px;
+      }
+
+      header h1 {
+        font-size: 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+     
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>kryštof.papež.</h1>
+      <p>je to kvíz od kryštofa papeže který se chtěl inspirovat adamem čermákem tento kvíz je o mě.</p>
+    </header>
+
+   
+
+    <form id="quizForm" class="quiz-form">
+     
+        <div class="question" style="margin-bottom: 24px; padding: 16px; background-color: #f8f9fa; border-radius: 8px">
+          <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 18px; font-weight: 600;">
+            1. kolik mám sester a bratrů
+          </h3>
+          <div style="margin: 12px 0;">
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-0" value="0" style="margin-right: 12px; cursor: pointer;" />
+            <span>jeden bratr a jedna sestra</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-0" value="1" style="margin-right: 12px; cursor: pointer;" />
+            <span>jedna sestra</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-0" value="2" style="margin-right: 12px; cursor: pointer;" />
+            <span>dvě sestry</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-0" value="3" style="margin-right: 12px; cursor: pointer;" />
+            <span>dva bratři </span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-0" value="4" style="margin-right: 12px; cursor: pointer;" />
+            <span>jeden bratr</span>
+          </label>
+        </div>
+         
+         
+        </div>
+     
+        <div class="question" style="margin-bottom: 24px; padding: 16px; background-color: #f8f9fa; border-radius: 8px">
+          <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 18px; font-weight: 600;">
+            2. kolik je let mému tátovi ,
+tati prosím neodpovídej
+          </h3>
+          <div style="margin: 12px 0;">
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-1" value="0" style="margin-right: 12px; cursor: pointer;" />
+            <span>40</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-1" value="1" style="margin-right: 12px; cursor: pointer;" />
+            <span>41</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-1" value="2" style="margin-right: 12px; cursor: pointer;" />
+            <span>42</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-1" value="3" style="margin-right: 12px; cursor: pointer;" />
+            <span>43</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-1" value="4" style="margin-right: 12px; cursor: pointer;" />
+            <span>44</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-1" value="5" style="margin-right: 12px; cursor: pointer;" />
+            <span>45</span>
+          </label>
+        </div>
+         
+         
+        </div>
+     
+        <div class="question" style="margin-bottom: 24px; padding: 16px; background-color: #f8f9fa; border-radius: 8px">
+          <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 18px; font-weight: 600;">
+            3. kolik je mi let
+          </h3>
+          <div style="margin: 12px 0;">
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-2" value="0" style="margin-right: 12px; cursor: pointer;" />
+            <span>7</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-2" value="1" style="margin-right: 12px; cursor: pointer;" />
+            <span>8</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-2" value="2" style="margin-right: 12px; cursor: pointer;" />
+            <span>9</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-2" value="3" style="margin-right: 12px; cursor: pointer;" />
+            <span>10</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-2" value="4" style="margin-right: 12px; cursor: pointer;" />
+            <span>11</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-2" value="5" style="margin-right: 12px; cursor: pointer;" />
+            <span>12</span>
+          </label>
+        </div>
+         
+         
+        </div>
+     
+        <div class="question" style="margin-bottom: 24px; padding: 16px; background-color: #f8f9fa; border-radius: 8px">
+          <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 18px; font-weight: 600;">
+            4. kdy jsem se narodil přesně
+          </h3>
+          <div style="margin: 12px 0;">
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-3" value="0" style="margin-right: 12px; cursor: pointer;" />
+            <span>19.6.2014</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-3" value="1" style="margin-right: 12px; cursor: pointer;" />
+            <span>20.9.2015</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-3" value="2" style="margin-right: 12px; cursor: pointer;" />
+            <span>22.9.2015</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-3" value="3" style="margin-right: 12px; cursor: pointer;" />
+            <span>22.6.2015</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-3" value="4" style="margin-right: 12px; cursor: pointer;" />
+            <span>18.12.1999</span>
+          </label>
+        </div>
+         
+         
+        </div>
+     
+        <div class="question" style="margin-bottom: 24px; padding: 16px; background-color: #f8f9fa; border-radius: 8px">
+          <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 18px; font-weight: 600;">
+            5. kde jsem se narodil
+          </h3>
+          <div style="margin: 12px 0;">
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="0" style="margin-right: 12px; cursor: pointer;" />
+            <span>Čakovičky</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="1" style="margin-right: 12px; cursor: pointer;" />
+            <span>Praha 8</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="2" style="margin-right: 12px; cursor: pointer;" />
+            <span>Brandýs</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="3" style="margin-right: 12px; cursor: pointer;" />
+            <span>Praha 12</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="4" style="margin-right: 12px; cursor: pointer;" />
+            <span>Praha 5</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="5" style="margin-right: 12px; cursor: pointer;" />
+            <span>Liberec</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="6" style="margin-right: 12px; cursor: pointer;" />
+            <span>Praha 1</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="7" style="margin-right: 12px; cursor: pointer;" />
+            <span>Praha 2</span>
+          </label>
+       
+          <label class="answer-label" style="display: flex; align-items: center; padding: 12px; margin: 8px 0; border: 2px solid #000000; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+            <input type="radio" name="q-4" value="8" style="margin-right: 12px; cursor: pointer;" />
+            <span>Praha 7</span>
+          </label>
+        </div>
+         
+         
+        </div>
+     
+
+      <div class="button-group">
+        <button type="submit" class="btn-submit">Odeslat odpovědi</button>
+        <button type="reset" class="btn-reset">Vymazat</button>
+        <button type="button" class="btn-show-answers" onclick="toggleAnswers()">Zobrazit odpovědi</button>
+      </div>
+    </form>
+
+    <div id="results" style="display: none; text-align: center; padding: 32px; background: linear-gradient(135deg, #10b98120, #f9731620); border-radius: 8px; margin-top: 32px;">
+      <h2 style="font-size: 22px; margin-bottom: 16px; color: #000000;">Výsledky</h2>
+      <p style="font-size: 18px; margin: 8px 0;">Vaše skóre:</p>
+      <div style="font-size: 24px; font-weight: 700; color: #f97316; margin: 16px 0;" id="scorePercentage">0%</div>
+      <p style="font-size: 16px; margin: 8px 0;" id="scoreText">0 z 0 správně</p>
+      <button type="button" style="margin-top: 16px; padding: 12px 24px; background-color: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600;" onclick="location.reload()">Opakovat kvíz</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [{"id":"TX7_Qgi3Qvf8aYDBt5kJX","text":"kolik mám sester a bratrů","type":"multiple-choice","answers":[{"id":"W032eyrFCuqQvYuld2qcy","text":"jeden bratr a jedna sestra","isCorrect":false},{"id":"n-WKATwllXNfDetq-wCW1","text":"jedna sestra","isCorrect":true},{"id":"xzeXeSDHOaRSlckNfxX7e","text":"dvě sestry","isCorrect":false},{"id":"UACnz9AWXXBpOm33HY3Pz","text":"dva bratři ","isCorrect":false},{"id":"Z96U9QA6m4pwcK8P0qFLl","text":"jeden bratr","isCorrect":false}],"explanation":"","points":1},{"id":"Rmgr92KoAxsTXpQKAkBYP","text":"kolik je let mému tátovi ,\ntati prosím neodpovídej","type":"multiple-choice","answers":[{"id":"TxJSGk2ZyIS8Jr8iS2rFv","text":"40","isCorrect":true},{"id":"ieMu_Q1nxz7wiIejIyhb5","text":"41","isCorrect":false},{"id":"DiUtWkL54pq7k9Wonzypy","text":"42","isCorrect":false},{"id":"bG1axacdBttxlDelq17Mb","text":"43","isCorrect":false},{"id":"ch2XWCYUPU3NuKiv1GWx_","text":"44","isCorrect":false},{"id":"3BdPi56ow_ciZ6OUaULpE","text":"45","isCorrect":false}],"explanation":"","points":5},{"id":"u8sMrLHrfNJ5PcXucsf2h","text":"kolik je mi let","type":"multiple-choice","answers":[{"id":"ZaGTqqh6ZNVC7yRw7C4d2","text":"7","isCorrect":false},{"id":"-QThvRl4p3EHd4RNdCLHb","text":"8","isCorrect":false},{"id":"eVgA5ufQA47anTnCWLAQy","text":"9","isCorrect":false},{"id":"qMUmOCQMtPkBGxmv9MlKG","text":"10","isCorrect":true},{"id":"Chw5Hv2Zi8APQaWTK10Yd","text":"11","isCorrect":false},{"id":"J7_Pl5xRj8kbU-ZYEncUZ","text":"12","isCorrect":false}],"explanation":"","points":1},{"id":"z_TWm2Kx4xXEF9FqlaJkO","text":"kdy jsem se narodil přesně","type":"multiple-choice","answers":[{"id":"Y7ZXsGVknj5J6Y2vzGNjG","text":"19.6.2014","isCorrect":false},{"id":"lil7XjUQeY2ndL02m841e","text":"20.9.2015","isCorrect":false},{"id":"Qn7pDvbFLPlmFu4BqrnzR","text":"22.9.2015","isCorrect":false},{"id":"iBv9Av6LP2O7YuK5eyzfh","text":"22.6.2015","isCorrect":true},{"id":"7fgMJOqknI0evX3ROc575","text":"18.12.1999","isCorrect":false}],"explanation":"","points":1},{"id":"1rhXp4xiUul8YjNh8p5ir","text":"kde jsem se narodil","type":"multiple-choice","answers":[{"id":"3Zgqr-C5JcVX3kXoZlyj8","text":"Čakovičky","isCorrect":false},{"id":"zpTS9CNG0iNwZ4b8KihXe","text":"Praha 8","isCorrect":true},{"id":"_DRuQKMlKYXVlESunCZXA","text":"Brandýs","isCorrect":false},{"id":"vl4p4WikvQERszgSIS111","text":"Praha 12","isCorrect":false},{"id":"jPnMNbEqSw5sVZ7ZZweGn","text":"Praha 5","isCorrect":false},{"id":"2-yR7osWQY4i0g1oLAVtY","text":"Liberec","isCorrect":false},{"id":"eFmV0wVDAgk95vqcpO0xy","text":"Praha 1","isCorrect":false},{"id":"HyzUjfM_O58d89e0iBZka","text":"Praha 2","isCorrect":false},{"id":"gwthfs5wSr8xpg7JTFm0V","text":"Praha 7","isCorrect":false}],"explanation":"","points":1}];
+    const settings = {"title":"kryštof.papež.","description":"je to kvíz od kryštofa papeže který se chtěl inspirovat adamem čermákem tento kvíz je o mě.","shuffleQuestions":false,"shuffleAnswers":true,"showScore":true,"showCorrectAnswers":true,"allowRetake":true,"buttonShape":"rounded","answersLayout":"vertical","showResultsImmediately":false,"resultsPosition":"end","showProgressBar":false,"requireAllAnswers":true};
+    const showResultsImmediately = false;
+    const resultsPosition = 'end';
+
+    function toggleAnswers() {
+      const explanations = document.querySelectorAll('[class^="explanation-"]');
+      explanations.forEach(exp => {
+        exp.style.display = exp.style.display === 'none' ? 'block' : 'none';
+      });
+    }
+
+    function updateProgressBar() {
+      const form = document.getElementById('quizForm');
+      const formData = new FormData(form);
+      let answeredCount = 0;
+     
+      for (let i = 0; i < questions.length; i++) {
+        if (formData.get('q-' + i) !== null && formData.get('q-' + i) !== '') {
+          answeredCount++;
+        }
+      }
+     
+      const percentage = (answeredCount / questions.length) * 100;
+      const progressBar = document.getElementById('progressBar');
+      if (progressBar) {
+        progressBar.style.width = percentage + '%';
+      }
+    }
+
+    function calculateScore() {
+      const form = document.getElementById('quizForm');
+      const formData = new FormData(form);
+      let correctCount = 0;
+      let totalCount = 0;
+
+     
+        const q0Answer = formData.get('q-0');
+        if (q0Answer !== null) {
+          totalCount++;
+          const correctAnswerIndex = 1;
+          if (parseInt(q0Answer) === correctAnswerIndex) {
+            correctCount++;
+           
+          } else {
+           
+          }
+        }
+     
+        const q1Answer = formData.get('q-1');
+        if (q1Answer !== null) {
+          totalCount++;
+          const correctAnswerIndex = 0;
+          if (parseInt(q1Answer) === correctAnswerIndex) {
+            correctCount++;
+           
+          } else {
+           
+          }
+        }
+     
+        const q2Answer = formData.get('q-2');
+        if (q2Answer !== null) {
+          totalCount++;
+          const correctAnswerIndex = 3;
+          if (parseInt(q2Answer) === correctAnswerIndex) {
+            correctCount++;
+           
+          } else {
+           
+          }
+        }
+     
+        const q3Answer = formData.get('q-3');
+        if (q3Answer !== null) {
+          totalCount++;
+          const correctAnswerIndex = 3;
+          if (parseInt(q3Answer) === correctAnswerIndex) {
+            correctCount++;
+           
+          } else {
+           
+          }
+        }
+     
+        const q4Answer = formData.get('q-4');
+        if (q4Answer !== null) {
+          totalCount++;
+          const correctAnswerIndex = 1;
+          if (parseInt(q4Answer) === correctAnswerIndex) {
+            correctCount++;
+           
+          } else {
+           
+          }
+        }
+     
+
+      return { correctCount, totalCount };
+    }
+
+    document.getElementById('quizForm').addEventListener('change', function() {
+      if (settings.showProgressBar) {
+        updateProgressBar();
+      }
+      if (showResultsImmediately && settings.showScore) {
+        const { correctCount, totalCount } = calculateScore();
+        if (totalCount > 0) {
+          const percentage = Math.round((correctCount / totalCount) * 100);
+          const scorePercentage = document.getElementById('scorePercentage');
+          const scoreText = document.getElementById('scoreText');
+          if (scorePercentage) scorePercentage.textContent = percentage + '%';
+          if (scoreText) scoreText.textContent = correctCount + ' z ' + totalCount + ' správně';
+         
+          if (resultsPosition === 'inline') {
+            const results = document.getElementById('results');
+            if (results) results.style.display = 'block';
+          }
+        }
+      }
+    });
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+     
+      const form = document.getElementById('quizForm');
+      const formData = new FormData(form);
+      let allAnswered = true;
+     
+      for (let i = 0; i < questions.length; i++) {
+        if (formData.get('q-' + i) === null || formData.get('q-' + i) === '') {
+          allAnswered = false;
+          break;
+        }
+      }
+     
+      if (!allAnswered) {
+        alert('Prosím, odpovězte na všechny otázky');
+        return;
+      }
+     
+
+     
+      const { correctCount, totalCount } = calculateScore();
+      const percentage = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
+     
+      document.getElementById('scorePercentage').textContent = percentage + '%';
+      document.getElementById('scoreText').textContent = correctCount + ' z ' + totalCount + ' správně';
+     
+      if (resultsPosition === 'end') {
+        document.getElementById('results').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (resultsPosition === 'modal') {
+        document.getElementById('resultsModal').style.display = 'flex';
+      } else if (resultsPosition === 'inline') {
+        document.getElementById('results').style.display = 'block';
+      }
+     
+    });
+  </script>
+</body>
+</html>
